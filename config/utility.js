@@ -26,11 +26,12 @@ module.exports = {
 		//MD5 is one type od hash, used to sign on a random data.
 		md5.update(url);
 		md5.update(salt);
-		var hash = mad5.digest('hex');// digest is a method of crypto, input the abstract of data, 'hex' is the method of coding;
+		var hash = md5.digest('hex');// digest is a method of crypto, input the abstract of data, 'hex' is the method of coding;
 	
 		var shortURLGnrt = bases.toBase62(parseInt(hash, 16));
 		shortURLGnrt = shortURLGnrt.substring(0, 6);
 		return shortURLGnrt;
 
 	}
-}
+};
+

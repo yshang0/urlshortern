@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tiny URL</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Advent+Pro:400,200' rel='stylesheet' type='text/css'>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <h1 id="title" class="navbar-text navbar-left"><a href = index.html>TINY URL</a></h1>
+            <p class="navbar-text navbar-right navbar-leftblock" id = "logintab" data-toggle="modal" data-target="#login-modal"><a href=#>LOG IN</a>
+            </p>
+            <p class="navbar-text navbar-right navbar-leftblock" id = "signuptab" data-toggle="modal" data-target="#login-modal"><a href=#>SIGN UP</a>
+            </p>
+        </div>
+    </nav>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+   s     <div class="modal-dialog">
+            <div class="modal-container loginmodal-container">
+                <h3 style = "font-weight:300">Login to Your Account</h3>
+                <br>
+                <form>
+                    <input type="text" name="user" placeholder="Email">
+                    <input type="password" name="pass" placeholder="Password">
+                    <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                </form>
+                <div class="login-help" id = "register_tab">
+                    <a href="#"s>Register</a>
+                </div>
+            </div>
+                    <div class= "modal-container signupmodal-container" style = "display:none">
+                <h3 style = "font-weight:300">Create a New Account</h3>
+                <br>
+                <form>
+                    <input type="text" name="user" placeholder="Email">
+                    <input type="password" name="pass" placeholder="Password">
+                    <input type="submit" name="login" class="login loginmodal-submit" value="Register">
+                </form>
+                <div class="login-help" id = "login_subtab">
+                    <a href="#"s>Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id = "errorpage">
+    <img src = "img/error.png">
+    
+</div>
+    <div class="background-img">
+        <img src="img/background.png">
+    </div>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+     $(document).ready(function () {
+     var delay = 2000;
+     setTimeout(function(){ 
+         window.location = "index.html";}, delay);
+     });
+    </script>
+</body>
+
+</html>

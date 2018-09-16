@@ -9,21 +9,25 @@ var utility = require('./config/utility');
 var app = express();
 
 var base_url = process.env.BASE_URL || 'http://localhost:8080';//we have set baseUrl, if BASE_URL has existed, baseUrl = BASE_URL, otherwise baseUrl = http://localhost:3000。
-
+// goo.gl/4kf8sd
 
 
 var client = new pg.Client({
-	user:,
-	password:,
-	database:,
-	port:,
-	host:,
-	ssl:
+    user: "bblwuhzsmwhdcq",
+    password: "OqhX4D1yB5Ht782IzQ4OKrRRu9",
+    database: "d59ks1nlatsbl9",
+    port: 5432,
+    host: "ec2-54-204-8-224.compute-1.amazonaws.com",
+    ssl: true
 });
 
-client.connect(function(err)) {
+client.connect(function(err) {
 	if(err)
-		throw err;
+	{
+	//		throw err;
+	    console.log("Connected to postgres ERR!");//print out Connected to postgres!
+	}
+
 	else
 		console.log("Connected to postgres!");//print out Connected to postgres!
 });
@@ -67,13 +71,14 @@ router.get('/', function(request, response) {
 router.get('/:shortURLId', function(request, response) {
 	var shortURLId = request.params.shortURLId.trim();
 	client.query('SELECT longurl FROM shorturlmap WHERE shorturl = $1',[shortURLId], function(err, result) {
+		//$1 refer to first argument;
 		if(err) {
-			console.lon(err);
+			console.log(err);
 			return response.status(500).json({'err': 'PostgreSQL SELECT ERR!'});
 
 		}
 		if(result.rows.length == 0) {
-			return response.render('err'); // 404 pages
+			return response.render('error'); // 404 pages
 		}
 
 		var selectedLongURL = result.rows[0];
@@ -90,7 +95,7 @@ router.post('/longurl', function(request, response) {
 	console.log(body);
 	var isValid = utility.validateLongURL(body);
 	console.log(body.longURL);
-	if(isValie != 'succeed') {
+	if(isValid != 'succeed') {
 		return response.status(400).json({'err': 'Bad Request', 'message': isValid});
 	}
 
@@ -109,7 +114,7 @@ router.post('/longurl', function(request, response) {
 
 		}
 		var shortedURL = base_url +'/' + shortURLGnrt;
-		return response.json({'message': 'Short URL Generated!', 'ShortURL': shortendURL});
+		return response.json({'message': 'Short URL Generated!', 'ShortURL': shortedURL});
 	});
 });
 
@@ -117,19 +122,19 @@ router.post('/longurl', function(request, response) {
 //custom url
 router.post('/custom', function(request, response) {
 	var body = request.body;
-	var isValid = utility.calidateCustomizeBodyURL(body);
+	var isValid = utility.validateCustomizeBodyURL(body);
 	if(isValide != 'succeed') {
-		return response.status(400).json({'err': 'Bad Resquest', 'message': isValid});
+		return response.status(400).json({'err': 'Bad Request', 'message': isValid});
 	}
 
 	var shortURL = body.customizedshorturl;
 	var longURL = body.longURL.trim();
 	var userId = body.userId;
-	if(!validUrl.usUri(longURL)) {
+	if(!validUrl.isUri(longURL)) {
 		return response.json({'err': 'Invalid URL!'});
 	}
 
-	client.query('SELECT longurl FROM shorturlmap WHERE shorturl = $1', [shortURL], function(err, result) {
+	client.query('SELECT longUrl FROM shorturlmap WHERE shortUrl = $1', [shortURL], function(err, result) {
 		if(err) {
 			console.log(err);
 			return response.status(500).json({'err': 'PostgreSQL SELECT ERR!'});
@@ -141,14 +146,14 @@ router.post('/custom', function(request, response) {
 			return response.json({'err': 'The short URL has been used!'});
 		}
 
-		client.query('INSERT INTO shorturlmap(shorturl, longUrl, userId, count) VALUE($1, $2, $3, $4)', [shortURL, longURL, userId, 0], function(err, result){
+		client.query('INSERT INTO shorturlmap(shortUrl, longUrl, userId, count) VALUES($1, $2, $3, $4)', [shortURL, longURL, userId, 0], function(err, result){
 			if(err) {
 				console.log(err);
 				return response.status(500).json({'err': 'PostgreSQL INSERT ERR!'});
 			}
 
-			var shortendURL = base_url + '/' + shortURL;
-			return response.json({'message': 'CustomizedURL Generated!', 'ShortURL': shortendURL});
+			var shortedURL = base_url + '/' + shortURL;
+			return response.json({'message': 'CustomizedURL Generated!', 'ShortURL': shortedURL});
 		});
 	});
 });
@@ -160,7 +165,7 @@ var server = app.listen(app.get('port'), function() {
 	var host = server.address().address;
 	var port = server.address().port;
 
-	console.log('URL Shortener is running on htto://%s:%s', host, port)
+	console.log('URL Shortener is running on http://%s:%s', host, port)
 });
 
 
