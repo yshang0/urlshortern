@@ -78,8 +78,9 @@ router.get('/:shortURLId', function(request, response) {
 		}
 
 		var selectedLongURL = result.rows[0];
-		console.log(selectedLongURL['longurl']);
-		return response.redirect(301, selectedLongURL['longurl']);
+		console.log("selectedLongURL: " + selectedLongURL);
+		console.log(selectedLongURL['longurl'].trim() + "ending");
+		return response.redirect(301, selectedLongURL['longurl'].trim());
 	});
 
 });
@@ -107,8 +108,9 @@ router.post('/longurl', function(request, response) {
 		if(err) {
 			console.log(err);
 			return response.status(500).json({'err': 'PostgreSQL INSERT ERR!'});
-
 		}
+
+//		console.log(longURLParams);
 		var shortedURL = base_url +'/' + shortURLGnrt;
 		return response.json({'message': 'Short URL Generated!', 'ShortURL': shortedURL});
 	});
