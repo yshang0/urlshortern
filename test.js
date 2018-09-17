@@ -4,7 +4,7 @@ const request = require('request');
 const test = require('tape');
 
 // Start the app
-const env = Object.assign({}, process.env, {PORT: 5000});
+const env = Object.assign({}, process.env, {PORT: 8080});
 const child = spawn('node', ['index.js'], {env});
 
 test('responds to requests', (t) => {
@@ -13,7 +13,7 @@ test('responds to requests', (t) => {
   // Wait until the server is ready
   child.stdout.on('data', _ => {
     // Make a request to our app
-    request('http://127.0.0.1:5000', (error, response, body) => {
+    request('http://127.0.0.1:8080', (error, response, body) => {
       // stop the server
       child.kill();
 

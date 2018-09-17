@@ -13,21 +13,20 @@ var base_url = process.env.BASE_URL || 'http://localhost:8080';//we have set bas
 
 
 var client = new pg.Client({
-    user: "bblwuhzsmwhdcq",
-    password: "OqhX4D1yB5Ht782IzQ4OKrRRu9",
-    database: "d59ks1nlatsbl9",
+    user: "jzqgphkceqqufn",
+    password: "48c6c5da579f37831c16a9bb4bf54416b73bb029d382deac3827b23867d34c0b",
+    database: "d5hnm16u18v62c",
     port: 5432,
-    host: "ec2-54-204-8-224.compute-1.amazonaws.com",
+    host: "ec2-54-83-27-165.compute-1.amazonaws.com",
     ssl: true
 });
 
 client.connect(function(err) {
 	if(err)
 	{
-	//		throw err;
 	    console.log("Connected to postgres ERR!");//print out Connected to postgres!
+		throw err;
 	}
-
 	else
 		console.log("Connected to postgres!");//print out Connected to postgres!
 });
