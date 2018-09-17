@@ -11,13 +11,19 @@ var app = express();
 var base_url = process.env.BASE_URL || 'http://localhost:8080';//we have set baseUrl, if BASE_URL has existed, baseUrl = BASE_URL, otherwise baseUrl = http://localhost:3000。
 // goo.gl/4kf8sd
 
+//const { Pool } = require('pg');
+//const pool = new Pool({
+//  connectionString: process.env.DATABASE_URL,
+//  ssl: true
+//});
 
 var client = new pg.Client({
-    user: "jzqgphkceqqufn",
-    password: "48c6c5da579f37831c16a9bb4bf54416b73bb029d382deac3827b23867d34c0b",
-    database: "d5hnm16u18v62c",
-    port: 5432,
-    host: "ec2-54-83-27-165.compute-1.amazonaws.com",
+//    user: "jzqgphkceqqufn",
+//    password: "48c6c5da579f37831c16a9bb4bf54416b73bb029d382deac3827b23867d34c0b",
+//    database: "d5hnm16u18v62c",
+//    port: 5432,
+//    host: "ec2-54-83-27-165.compute-1.amazonaws.com",
+    connectionString: "postgres://jzqgphkceqqufn:48c6c5da579f37831c16a9bb4bf54416b73bb029d382deac3827b23867d34c0b@ec2-54-83-27-165.compute-1.amazonaws.com:5432/d5hnm16u18v62c",
     ssl: true
 });
 
